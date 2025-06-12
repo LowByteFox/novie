@@ -1,4 +1,4 @@
-module concord_raw;
+module concord::raw;
 
 /* === TYPES === */
 alias U64UnixMs = ulong;
@@ -6,266 +6,234 @@ alias U64Bitmask = ulong;
 alias U64Snowflake = ulong;
 alias JsonChar = char;
 
-enum CcordCode : int (inline int v) {
-    CCORD_MALFORMED_PAYLOAD = -12,
-    CCORD_FULL_WORKER = -11,
-    CCORD_RESOURCE_UNAVAILABLE = -10,
-    CCORD_UNAVAILABLE = -10,
-    CCORD_RESOURCE_OWNERSHIP = -9,
-    CCORD_OWNERSHIP = -9, 
-    CCORD_GLOBAL_INIT = -8,
-    CCORD_CURLM_INTERNAL = -7,
-    CCORD_CURLE_INTERNAL = -6,
-    CCORD_BAD_JSON = -5,
-    CCORD_BAD_PARAMETER = -4,
-    CCORD_UNUSUAL_HTTP_CODE = -3,
-    CCORD_CURL_NO_RESPONSE = -2,
-    CCORD_HTTP_CODE = -1,
-    CCORD_OK = 0,
-    CCORD_PENDING = 1,
-    CCORD_DISCORD_JSON_CODE = 100,
-    CCORD_DISCORD_BAD_AUTH = 101,
-    CCORD_DISCORD_RATELIMIT = 102,
-    CCORD_DISCORD_CONNECTION = 103,
-}
+alias CcordCode = int;
+const CcordCode CCORD_MALFORMED_PAYLOAD = -12;
+const CcordCode CCORD_FULL_WORKER = -11;
+const CcordCode CCORD_RESOURCE_UNAVAILABLE = -10;
+const CcordCode CCORD_UNAVAILABLE = -10;
+const CcordCode CCORD_RESOURCE_OWNERSHIP = -9;
+const CcordCode CCORD_OWNERSHIP = -9; 
+const CcordCode CCORD_GLOBAL_INIT = -8;
+const CcordCode CCORD_CURLM_INTERNAL = -7;
+const CcordCode CCORD_CURLE_INTERNAL = -6;
+const CcordCode CCORD_BAD_JSON = -5;
+const CcordCode CCORD_BAD_PARAMETER = -4;
+const CcordCode CCORD_UNUSUAL_HTTP_CODE = -3;
+const CcordCode CCORD_CURL_NO_RESPONSE = -2;
+const CcordCode CCORD_HTTP_CODE = -1;
+const CcordCode CCORD_OK = 0;
+const CcordCode CCORD_PENDING = 1;
+const CcordCode CCORD_DISCORD_JSON_CODE = 100;
+const CcordCode CCORD_DISCORD_BAD_AUTH = 101;
+const CcordCode CCORD_DISCORD_RATELIMIT = 102;
+const CcordCode CCORD_DISCORD_CONNECTION = 103;
 
-enum DiscordApplicationCommandTypes : int (inline int v) {
-    DISCORD_APPLICATION_CHAT_INPUT = 1,
-    DISCORD_APPLICATION_USER = 2,
-    DISCORD_APPLICATION_MESSAGE = 3
-}
+alias DiscordApplicationCommandTypes = int;
+const DiscordApplicationCommandTypes DISCORD_APPLICATION_CHAT_INPUT = 0;
+const DiscordApplicationCommandTypes DISCORD_APPLICATION_USER = 1;
+const DiscordApplicationCommandTypes DISCORD_APPLICATION_MESSAGE = 2;
 
-enum DiscordInteractionTypes : int (inline int v) {
-    DISCORD_INTERACTION_PING = 1,	
-    DISCORD_INTERACTION_APPLICATION_COMMAND = 2,
-    DISCORD_INTERACTION_MESSAGE_COMPONENT = 3,
-    DISCORD_INTERACTION_APPLICATION_COMMAND_AUTOCOMPLETE = 4,
-    DISCORD_INTERACTION_MODAL_SUBMIT = 5
-}
+alias DiscordInteractionTypes = int;
+const DiscordInteractionTypes DISCORD_INTERACTION_PING = 1;
+const DiscordInteractionTypes DISCORD_INTERACTION_APPLICATION_COMMAND = 2;
+const DiscordInteractionTypes DISCORD_INTERACTION_MESSAGE_COMPONENT = 3;
+const DiscordInteractionTypes DISCORD_INTERACTION_APPLICATION_COMMAND_AUTOCOMPLETE = 4;
+const DiscordInteractionTypes DISCORD_INTERACTION_MODAL_SUBMIT = 5;
 
-enum DiscordComponentTypes : int (inline int v) {
-    DISCORD_COMPONENT_ACTION_ROW = 1,
-    DISCORD_COMPONENT_BUTTON = 2,
-    DISCORD_COMPONENT_SELECT_MENU = 3,
-    DISCORD_COMPONENT_TEXT_INPUT = 4,
-    DISCORD_COMPONENT_USER_SELECT = 5,
-    DISCORD_COMPONENT_ROLE_SELECT = 6,
-    DISCORD_COMPONENT_MENTION_SELECT = 7,
-    DISCORD_COMPONENT_CHANNEL_SELECT = 8,
-    DISCORD_COMPONENT_SECTION = 9,
-    DISCORD_COMPONENT_TEXT_DISPLAY = 10,
-    DISCORD_COMPONENT_THUMBNAIL = 11,
-    DISCORD_COMPONENT_MEDIA_GALLERY = 12,
-    DISCORD_COMPONENT_FILE = 13,
-    DISCORD_COMPONENT_SEPARATOR = 14,
-    DISCORD_COMPONENT_CONTENT_INVENTORY_ENTRY = 16,
-    DISCORD_COMPONENT_CONTAINER = 17
-}
+alias DiscordComponentTypes = int;
+const DiscordComponentTypes DISCORD_COMPONENT_ACTION_ROW = 1;
+const DiscordComponentTypes DISCORD_COMPONENT_BUTTON = 2;
+const DiscordComponentTypes DISCORD_COMPONENT_SELECT_MENU = 3;
+const DiscordComponentTypes DISCORD_COMPONENT_TEXT_INPUT = 4;
+const DiscordComponentTypes DISCORD_COMPONENT_USER_SELECT = 5;
+const DiscordComponentTypes DISCORD_COMPONENT_ROLE_SELECT = 6;
+const DiscordComponentTypes DISCORD_COMPONENT_MENTION_SELECT = 7;
+const DiscordComponentTypes DISCORD_COMPONENT_CHANNEL_SELECT = 8;
+const DiscordComponentTypes DISCORD_COMPONENT_SECTION = 9;
+const DiscordComponentTypes DISCORD_COMPONENT_TEXT_DISPLAY = 10;
+const DiscordComponentTypes DISCORD_COMPONENT_THUMBNAIL = 11;
+const DiscordComponentTypes DISCORD_COMPONENT_MEDIA_GALLERY = 12;
+const DiscordComponentTypes DISCORD_COMPONENT_FILE = 13;
+const DiscordComponentTypes DISCORD_COMPONENT_SEPARATOR = 14;
+const DiscordComponentTypes DISCORD_COMPONENT_CONTENT_INVENTORY_ENTRY = 16;
+const DiscordComponentTypes DISCORD_COMPONENT_CONTAINER = 17;
 
-enum DiscordApplicationCommandOptionTypes : int {
-    UNUSED,
-    DISCORD_APPLICATION_OPTION_SUB_COMMAND,
-    DISCORD_APPLICATION_OPTION_SUB_COMMAND_GROUP,
-    DISCORD_APPLICATION_OPTION_STRING,
-    DISCORD_APPLICATION_OPTION_INTEGER,
-    DISCORD_APPLICATION_OPTION_BOOLEAN,
-    DISCORD_APPLICATION_OPTION_USER,
-    DISCORD_APPLICATION_OPTION_CHANNEL,
-    DISCORD_APPLICATION_OPTION_ROLE,
-    DISCORD_APPLICATION_OPTION_MENTIONABLE,
-    DISCORD_APPLICATION_OPTION_NUMBER,
-    DISCORD_APPLICATION_OPTION_ATTACHMENT
-}
+alias DiscordApplicationCommandOptionTypes = int;
+const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_SUB_COMMAND = 1;
+const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_SUB_COMMAND_GROUP = 2;
+const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_STRING = 3;
+const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_INTEGER = 4;
+const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_BOOLEAN = 5;
+const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_USER = 6;
+const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_CHANNEL = 7;
+const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_ROLE = 8;
+const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_MENTIONABLE = 9;
+const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_NUMBER = 10;
+const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_ATTACHMENT = 11;
 
-enum DiscordComponentStyles : int (inline int v) {
-    DISCORD_BUTTON_PRIMARY = 1,
-    DISCORD_BUTTON_SECONDARY = 2,
-    DISCORD_BUTTON_SUCCESS = 3,
-    DISCORD_BUTTON_DANGER = 4,
-    DISCORD_BUTTON_LINK = 5,
-    DISCORD_TEXT_SHORT = 1,
-    DISCORD_TEXT_PARAGRAPH = 2,
-}
+alias DiscordComponentStyles = int;
+const DiscordComponentStyles DISCORD_BUTTON_PRIMARY = 1;
+const DiscordComponentStyles DISCORD_BUTTON_SECONDARY = 2;
+const DiscordComponentStyles DISCORD_BUTTON_SUCCESS = 3;
+const DiscordComponentStyles DISCORD_BUTTON_DANGER = 4;
+const DiscordComponentStyles DISCORD_BUTTON_LINK = 5;
+const DiscordComponentStyles DISCORD_TEXT_SHORT = 1;
+const DiscordComponentStyles DISCORD_TEXT_PARAGRAPH = 2;
 
-enum DiscordPremiumTypes : int {
-    DISCORD_PREMIUM_NONE,
-    DISCORD_PREMIUM_NITRO_CLASSIC,
-    DISCORD_PREMIUM_NITRO
-}
+alias DiscordPremiumTypes = int;
+const DiscordPremiumTypes DISCORD_PREMIUM_NONE = 0;
+const DiscordPremiumTypes DISCORD_PREMIUM_NITRO_CLASSIC = 1;
+const DiscordPremiumTypes DISCORD_PREMIUM_NITRO = 2;
 
-enum DiscordComponentSpacing : int {
-    UNUSED,
-    DISCORD_COMPONENT_SPACING_SMALL,
-    DISCORD_COMPONENT_SPACING_LARGE
-}
+alias DiscordComponentSpacing = int;
+const DiscordComponentSpacing DISCORD_COMPONENT_SPACING_SMALL = 1;
+const DiscordComponentSpacing DISCORD_COMPONENT_SPACING_LARGE = 2;
 
-enum DiscordChannelTypes : int (inline int v) {
-    DISCORD_CHANNEL_GUILD_TEXT = 0,
-    DISCORD_CHANNEL_DM = 1,
-    DISCORD_CHANNEL_GUILD_VOICE = 2,
-    DISCORD_CHANNEL_GROUP_DM = 3,
-    DISCORD_CHANNEL_GUILD_CATEGORY = 4,
-    DISCORD_CHANNEL_GUILD_ANNOUNCEMENT = 5,
-    DISCORD_CHANNEL_GUILD_NEWS = 5,
-    DISCORD_CHANNEL_GUILD_STORE = 6,
-    DISCORD_CHANNEL_ANNOUNCEMENT_THREAD = 10,
-    DISCORD_CHANNEL_GUILD_NEWS_THREAD = 10,
-    DISCORD_CHANNEL_GUILD_PUBLIC_THREAD = 11,
-    DISCORD_CHANNEL_GUILD_PRIVATE_THREAD = 12,
-    DISCORD_CHANNEL_GUILD_STAGE_VOICE = 13,
-    DISCORD_CHANNEL_GUILD_DIRECTORY = 14,
-    DISCORD_CHANNEL_GUILD_FORUM = 15,
-    DISCORD_CHANNEL_GUILD_MEDIA = 16
-}
+alias DiscordChannelTypes = int;
+const DiscordChannelTypes DISCORD_CHANNEL_GUILD_TEXT = 0;
+const DiscordChannelTypes DISCORD_CHANNEL_DM = 1;
+const DiscordChannelTypes DISCORD_CHANNEL_GUILD_VOICE = 2;
+const DiscordChannelTypes DISCORD_CHANNEL_GROUP_DM = 3;
+const DiscordChannelTypes DISCORD_CHANNEL_GUILD_CATEGORY = 4;
+const DiscordChannelTypes DISCORD_CHANNEL_GUILD_ANNOUNCEMENT = 5;
+const DiscordChannelTypes DISCORD_CHANNEL_GUILD_NEWS = 5;
+const DiscordChannelTypes DISCORD_CHANNEL_GUILD_STORE = 6;
+const DiscordChannelTypes DISCORD_CHANNEL_ANNOUNCEMENT_THREAD = 10;
+const DiscordChannelTypes DISCORD_CHANNEL_GUILD_NEWS_THREAD = 10;
+const DiscordChannelTypes DISCORD_CHANNEL_GUILD_PUBLIC_THREAD = 11;
+const DiscordChannelTypes DISCORD_CHANNEL_GUILD_PRIVATE_THREAD = 12;
+const DiscordChannelTypes DISCORD_CHANNEL_GUILD_STAGE_VOICE = 13;
+const DiscordChannelTypes DISCORD_CHANNEL_GUILD_DIRECTORY = 14;
+const DiscordChannelTypes DISCORD_CHANNEL_GUILD_FORUM = 15;
+const DiscordChannelTypes DISCORD_CHANNEL_GUILD_MEDIA = 16;
 
-enum DiscordSortOrderTypes : int {
-    DISCORD_SORT_ORDER_LATEST_ACTIVITY,
-    DISCORD_SORT_ORDER_CREATION_DATE
-}
+alias DiscordSortOrderTypes = int;
+const DiscordSortOrderTypes DISCORD_SORT_ORDER_LATEST_ACTIVITY = 0;
+const DiscordSortOrderTypes DISCORD_SORT_ORDER_CREATION_DATE = 1;
 
-enum DiscordForumLayoutTypes : int {
-    DISCORD_FORUM_LAYOUT_NOT_SET,
-    DISCORD_FORUM_LAYOUT_LIST_VIEW,
-    DISCORD_FORUM_LAYOUT_GALLERY_VIEW
-}
+alias DiscordForumLayoutTypes = int;
+const DiscordForumLayoutTypes DISCORD_FORUM_LAYOUT_NOT_SET = 0;
+const DiscordForumLayoutTypes DISCORD_FORUM_LAYOUT_LIST_VIEW = 1;
+const DiscordForumLayoutTypes DISCORD_FORUM_LAYOUT_GALLERY_VIEW = 2;
 
-enum DiscordMessageTypes : int {
-    DISCORD_MESSAGE_DEFAULT,
-    DISCORD_MESSAGE_RECIPIENT_ADD,
-    DISCORD_MESSAGE_RECIPIENT_REMOVE,
-    DISCORD_MESSAGE_CALL,
-    DISCORD_MESSAGE_CHANNEL_NAME_CHANGE,
-    DISCORD_MESSAGE_CHANNEL_ICON_CHANGE,
-    DISCORD_MESSAGE_CHANNEL_PINNED_MESSAGE,
-    DISCORD_MESSAGE_GUILD_MEMBER_JOIN,
-    DISCORD_MESSAGE_USER_PREMIUM_GUILD_SUBSCRIPTION,
-    DISCORD_MESSAGE_USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1,
-    DISCORD_MESSAGE_USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2,
-    DISCORD_MESSAGE_USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3,
-    DISCORD_MESSAGE_CHANNEL_FOLLOW_ADD,
-    UNUSED_13,
-    DISCORD_MESSAGE_GUILD_DISCOVERY_DISQUALIFIED,
-    DISCORD_MESSAGE_GUILD_DISCOVERY_REQUALIFIED,
-    DISCORD_MESSAGE_GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING,
-    DISCORD_MESSAGE_GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING,
-    DISCORD_MESSAGE_THREAD_CREATED,
-    DISCORD_MESSAGE_REPLY,
-    DISCORD_MESSAGE_CHAT_INPUT_COMMAND,
-    DISCORD_MESSAGE_THREAD_STARTER_MESSAGE,
-    DISCORD_MESSAGE_GUILD_INVITE_REMINDER,
-    DISCORD_MESSAGE_CONTEXT_MENU_COMMAND,
-    DISCORD_MESSAGE_AUTO_MODERATION_ACTION,
-    DISCORD_MESSAGE_ROLE_SUBSCRIPTION_PURCHASE,
-    DISCORD_MESSAGE_INTERACTION_PREMIUM_UPSELL,
-    DISCORD_MESSAGE_STAGE_START,
-    DISCORD_MESSAGE_STAGE_END,
-    DISCORD_MESSAGE_STAGE_SPEAKER,
-    UNUSED_30,
-    DISCORD_MESSAGE_STAGE_TOPIC,
-    DISCORD_MESSAGE_GUILD_APPLICATION_PREMIUM_SUBSCRIPTION
-}
+alias DiscordMessageTypes = int;
+const DiscordMessageTypes DISCORD_MESSAGE_DEFAULT = 0;
+const DiscordMessageTypes DISCORD_MESSAGE_RECIPIENT_ADD = 1;
+const DiscordMessageTypes DISCORD_MESSAGE_RECIPIENT_REMOVE = 2;
+const DiscordMessageTypes DISCORD_MESSAGE_CALL = 3;
+const DiscordMessageTypes DISCORD_MESSAGE_CHANNEL_NAME_CHANGE = 4;
+const DiscordMessageTypes DISCORD_MESSAGE_CHANNEL_ICON_CHANGE = 5;
+const DiscordMessageTypes DISCORD_MESSAGE_CHANNEL_PINNED_MESSAGE = 6;
+const DiscordMessageTypes DISCORD_MESSAGE_GUILD_MEMBER_JOIN = 7;
+const DiscordMessageTypes DISCORD_MESSAGE_USER_PREMIUM_GUILD_SUBSCRIPTION = 8;
+const DiscordMessageTypes DISCORD_MESSAGE_USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1 = 9;
+const DiscordMessageTypes DISCORD_MESSAGE_USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2 = 10;
+const DiscordMessageTypes DISCORD_MESSAGE_USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3 = 11;
+const DiscordMessageTypes DISCORD_MESSAGE_CHANNEL_FOLLOW_ADD = 12;
+const DiscordMessageTypes DISCORD_MESSAGE_GUILD_DISCOVERY_DISQUALIFIED = 14;
+const DiscordMessageTypes DISCORD_MESSAGE_GUILD_DISCOVERY_REQUALIFIED = 15;
+const DiscordMessageTypes DISCORD_MESSAGE_GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING = 16;
+const DiscordMessageTypes DISCORD_MESSAGE_GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING = 17;
+const DiscordMessageTypes DISCORD_MESSAGE_THREAD_CREATED = 18;
+const DiscordMessageTypes DISCORD_MESSAGE_REPLY = 19;
+const DiscordMessageTypes DISCORD_MESSAGE_CHAT_INPUT_COMMAND = 20;
+const DiscordMessageTypes DISCORD_MESSAGE_THREAD_STARTER_MESSAGE = 21;
+const DiscordMessageTypes DISCORD_MESSAGE_GUILD_INVITE_REMINDER = 22;
+const DiscordMessageTypes DISCORD_MESSAGE_CONTEXT_MENU_COMMAND = 23;
+const DiscordMessageTypes DISCORD_MESSAGE_AUTO_MODERATION_ACTION = 24;
+const DiscordMessageTypes DISCORD_MESSAGE_ROLE_SUBSCRIPTION_PURCHASE = 25;
+const DiscordMessageTypes DISCORD_MESSAGE_INTERACTION_PREMIUM_UPSELL = 26;
+const DiscordMessageTypes DISCORD_MESSAGE_STAGE_START = 27;
+const DiscordMessageTypes DISCORD_MESSAGE_STAGE_END = 28;
+const DiscordMessageTypes DISCORD_MESSAGE_STAGE_SPEAKER = 29;
+const DiscordMessageTypes DISCORD_MESSAGE_STAGE_TOPIC = 31;
+const DiscordMessageTypes DISCORD_MESSAGE_GUILD_APPLICATION_PREMIUM_SUBSCRIPTION = 32;
 
-enum DiscordMessageActivityType : int {
-    UNUSED,
-    DISCORD_MESSAGE_ACTIVITY_JOIN,
-    DISCORD_MESSAGE_ACTIVITY_SPECTATE,
-    DISCORD_MESSAGE_ACTIVITY_LISTEN,
-    UNUSED_4,
-    DISCORD_MESSAGE_ACTIVITY_JOIN_REQUEST
-}
+alias DiscordMessageActivityType = int;
+const DiscordMessageActivityType DISCORD_MESSAGE_ACTIVITY_JOIN = 1;
+const DiscordMessageActivityType DISCORD_MESSAGE_ACTIVITY_SPECTATE = 2;
+const DiscordMessageActivityType DISCORD_MESSAGE_ACTIVITY_LISTEN = 3;
+const DiscordMessageActivityType DISCORD_MESSAGE_ACTIVITY_JOIN_REQUEST = 5;
 
-enum DiscordMembershipState : int {
-    UNUSED,
-    DISCORD_MEMBERSHIP_INVITED,
-    DISCORD_MEMBERSHIP_ACCEPTED
-}
+alias DiscordMembershipState = int;
+const DiscordMembershipState DISCORD_MEMBERSHIP_INVITED = 1;
+const DiscordMembershipState DISCORD_MEMBERSHIP_ACCEPTED = 2;
 
-enum DiscordStickerFormatTypes : int {
-    UNUSED,
-    DISCORD_STICKER_FORMAT_PNG,
-    DISCORD_STICKER_FORMAT_APNG,
-    DISCORD_STICKER_FORMAT_LOTTIE
-}
+alias DiscordStickerFormatTypes = int;
+const DiscordStickerFormatTypes DISCORD_STICKER_FORMAT_PNG = 1;
+const DiscordStickerFormatTypes DISCORD_STICKER_FORMAT_APNG = 2;
+const DiscordStickerFormatTypes DISCORD_STICKER_FORMAT_LOTTIE = 3;
 
-enum DiscordStickerTypes : int {
-    UNUSED,
-    DISCORD_STICKER_STANDARD,
-    DISCORD_STICKER_GUILD
-}
+alias DiscordStickerTypes = int;
+const DiscordStickerTypes DISCORD_STICKER_STANDARD = 1;
+const DiscordStickerTypes DISCORD_STICKER_GUILD = 2;
 
-enum DiscordVerificationLevel : int {
-    DISCORD_VERIFICATION_NONE,
-    DISCORD_VERIFICATION_LOW,
-    DISCORD_VERIFICATION_MEDIUM,
-    DISCORD_VERIFICATION_HIGH,
-    DISCORD_VERIFICATION_VERY_HIGH
-}
+alias DiscordVerificationLevel = int;
+const DiscordVerificationLevel DISCORD_VERIFICATION_NONE = 0;
+const DiscordVerificationLevel DISCORD_VERIFICATION_LOW = 1;
+const DiscordVerificationLevel DISCORD_VERIFICATION_MEDIUM = 2;
+const DiscordVerificationLevel DISCORD_VERIFICATION_HIGH = 3;
+const DiscordVerificationLevel DISCORD_VERIFICATION_VERY_HIGH = 4;
 
-enum DiscordMessageNotificationLevel : int {
-    DISCORD_MESSAGE_NOTIFICATION_ALL_MESSAGES,
-    DISCORD_MESSAGE_NOTIFICATION_ONLY_MESSAGES
-}
+alias DiscordMessageNotificationLevel = int;
+const DiscordMessageNotificationLevel DISCORD_MESSAGE_NOTIFICATION_ALL_MESSAGES = 0;
+const DiscordMessageNotificationLevel DISCORD_MESSAGE_NOTIFICATION_ONLY_MESSAGES = 1;
 
-enum DiscordExplicitContentFilterLevel : int {
-    DISCORD_EXPLICIT_CONTENT_DISABLED,
-    DISCORD_EXPLICIT_CONTENT_MEMBERS_WITHOUT_ROLES,
-    DISCORD_MESSAGE_NOTIFICATION_ALL_MEMBERS
-}
+alias DiscordExplicitContentFilterLevel = int;
+const DiscordExplicitContentFilterLevel DISCORD_EXPLICIT_CONTENT_DISABLED = 0;
+const DiscordExplicitContentFilterLevel DISCORD_EXPLICIT_CONTENT_MEMBERS_WITHOUT_ROLES = 1;
+const DiscordExplicitContentFilterLevel DISCORD_MESSAGE_NOTIFICATION_ALL_MEMBERS = 2;
 
-enum DiscordMfaLevel : int {
-    DISCORD_MFA_NONE,
-    DISCORD_MFA_ELEVATED
-}
+alias DiscordMfaLevel = int;
+const DiscordMfaLevel DISCORD_MFA_NONE = 0;
+const DiscordMfaLevel DISCORD_MFA_ELEVATED = 1;
 
-enum DiscordActivityTypes : int {
-    DISCORD_ACTIVITY_GAME,
-    DISCORD_ACTIVITY_STREAMING,
-    DISCORD_ACTIVITY_LISTENING,
-    DISCORD_ACTIVITY_WATCHING,
-    DISCORD_ACTIVITY_CUSTOM,
-    DISCORD_ACTIVITY_COMPETING
-}
+alias DiscordActivityTypes = int;
+const DiscordActivityTypes DISCORD_ACTIVITY_GAME = 0;
+const DiscordActivityTypes DISCORD_ACTIVITY_STREAMING = 1;
+const DiscordActivityTypes DISCORD_ACTIVITY_LISTENING = 2;
+const DiscordActivityTypes DISCORD_ACTIVITY_WATCHING = 3;
+const DiscordActivityTypes DISCORD_ACTIVITY_CUSTOM = 4;
+const DiscordActivityTypes DISCORD_ACTIVITY_COMPETING = 5;
 
-enum DiscordPremiumTier : int {
-    DISCORD_PREMIUM_TIER_NONE,
-    DISCORD_PREMIUM_TIER_1,
-    DISCORD_PREMIUM_TIER_2,
-    DISCORD_PREMIUM_TIER_3
-}
+alias DiscordPremiumTier = int;
+const DiscordPremiumTier DISCORD_PREMIUM_TIER_NONE = 0;
+const DiscordPremiumTier DISCORD_PREMIUM_TIER_1 = 1;
+const DiscordPremiumTier DISCORD_PREMIUM_TIER_2 = 2;
+const DiscordPremiumTier DISCORD_PREMIUM_TIER_3 = 3;
 
-enum DiscordGuildNSFWLevel : int {
-    DISCORD_GUILD_NSFW_DEFAULT,
-    DISCORD_GUILD_NSFW_EXPLICIT,
-    DISCORD_GUILD_NSFW_SAFE,
-    DISCORD_GUILD_NSFW_AGE_RESTRICTED
-}
+alias DiscordGuildNSFWLevel = int;
+const DiscordGuildNSFWLevel DISCORD_GUILD_NSFW_DEFAULT = 0;
+const DiscordGuildNSFWLevel DISCORD_GUILD_NSFW_EXPLICIT = 1;
+const DiscordGuildNSFWLevel DISCORD_GUILD_NSFW_SAFE = 2;
+const DiscordGuildNSFWLevel DISCORD_GUILD_NSFW_AGE_RESTRICTED = 3;
 
-enum DiscordPrivacyLevel : int {
-    UNUSED,
-    DISCORD_PRIVACY_PUBLIC,
-    DISCORD_PRIVACY_GUILD_ONLY
-}
+alias DiscordPrivacyLevel = int;
+const DiscordPrivacyLevel DISCORD_PRIVACY_PUBLIC = 1;
+const DiscordPrivacyLevel DISCORD_PRIVACY_GUILD_ONLY = 2;
 
-enum DiscordGuildScheduledEventPrivacyLevel : int {
-    UNUSED,
-    UNUSED_1,
-    DISCORD_GUILD_SCHEDULED_EVENT_GUILD_ONLY
-}
+alias DiscordGuildScheduledEventPrivacyLevel = int;
+const DiscordGuildScheduledEventPrivacyLevel DISCORD_GUILD_SCHEDULED_EVENT_GUILD_ONLY = 2;
 
-enum DiscordGuildScheduledEventStatus : int {
-    UNUSED,
-    DISCORD_GUILD_SCHEDULED_EVENT_SCHEDULED,
-    DISCORD_GUILD_SCHEDULED_EVENT_ACTIVE,
-    DISCORD_GUILD_SCHEDULED_EVENT_COMPLETED,
-    DISCORD_GUILD_SCHEDULED_EVENT_CANCELED
-}
+alias DiscordGuildScheduledEventStatus = int;
+const DiscordGuildScheduledEventStatus DISCORD_GUILD_SCHEDULED_EVENT_SCHEDULED = 1;
+const DiscordGuildScheduledEventStatus DISCORD_GUILD_SCHEDULED_EVENT_ACTIVE = 2;
+const DiscordGuildScheduledEventStatus DISCORD_GUILD_SCHEDULED_EVENT_COMPLETED = 3;
+const DiscordGuildScheduledEventStatus DISCORD_GUILD_SCHEDULED_EVENT_CANCELED = 4;
 
-enum DiscordGuildScheduledEventEntityTypes : int {
-    UNUSED,
-    DISCORD_GUILD_SCHEDULED_EVENT_ENTITY_STAGE_INSTANCE,
-    DISCORD_GUILD_SCHEDULED_EVENT_ENTITY_VOICE,
-    DISCORD_GUILD_SCHEDULED_EVENT_ENTITY_EXTERNAL
-}
+alias DiscordGuildScheduledEventEntityTypes = int;
+const DiscordGuildScheduledEventEntityTypes DISCORD_GUILD_SCHEDULED_EVENT_ENTITY_STAGE_INSTANCE = 1;
+const DiscordGuildScheduledEventEntityTypes DISCORD_GUILD_SCHEDULED_EVENT_ENTITY_VOICE = 2;
+const DiscordGuildScheduledEventEntityTypes DISCORD_GUILD_SCHEDULED_EVENT_ENTITY_EXTERNAL = 3;
+
+alias DiscordInteractionCallbackTypes = int;
+const DiscordInteractionCallbackTypes DISCORD_INTERACTION_PONG = 1;
+const DiscordInteractionCallbackTypes DISCORD_INTERACTION_CHANNEL_MESSAGE_WITH_SOURCE = 4;
+const DiscordInteractionCallbackTypes DISCORD_INTERACTION_DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE = 5;
+const DiscordInteractionCallbackTypes DISCORD_INTERACTION_DEFERRED_UPDATE_MESSAGE = 6;
+const DiscordInteractionCallbackTypes DISCORD_INTERACTION_UPDATE_MESSAGE = 7;
+const DiscordInteractionCallbackTypes DISCORD_INTERACTION_APPLICATION_COMMAND_AUTOCOMPLETE_RESULT = 8;
+const DiscordInteractionCallbackTypes DISCORD_INTERACTION_MODAL = 9;
 
 struct CcordSzbufReadonly {
     char *start;
@@ -1137,6 +1105,23 @@ struct DiscordRetApplicationCommands {
     DiscordApplicationCommands *sync;
 }
 
+struct DiscordInteractionCallbackData {
+    DiscordComponents *components;
+    bool tts;
+    char *content;
+    DiscordEmbeds *embeds;
+    U64Bitmask flags;
+    DiscordAttachments *attachments;
+    DiscordApplicationCommandOptionChoices *choices;
+    char *custom_id;
+    char *title;
+}
+
+struct DiscordInteractionResponse {
+    DiscordInteractionCallbackTypes type;
+    DiscordInteractionCallbackData *data;
+}
+
 alias DiscordRet_Cleanup = fn void(Discord*, void*);
 alias DiscordRet_Fail = fn void(Discord*, DiscordResponse*);
 alias DiscordRet_Done = fn void(Discord*, DiscordResponse*);
@@ -1151,8 +1136,23 @@ struct DiscordRet {
     bool sync;
 }
 
+alias DiscordRetInteractionResponse_Cleanup = fn void(Discord*, void*);
+alias DiscordRetInteractionResponse_Fail = fn void(Discord*, DiscordResponse*);
+alias DiscordRetInteractionResponse_Done = fn void(Discord*, DiscordResponse*, DiscordInteractionResponse*);
+
+struct DiscordRetInteractionResponse {
+    void *data;
+    DiscordRetInteractionResponse_Cleanup cleanup;
+    void *keep;
+    bool high_priority;
+    DiscordRetInteractionResponse_Fail fail;
+    DiscordRetInteractionResponse_Done done;
+    DiscordInteractionResponse *sync;
+}
+
 alias Discord = void;
 alias OnReady = fn void(Discord*, DiscordReady*);
+alias OnInteraction = fn void(Discord*, DiscordInteraction*);
 
 /* === FNS === */
 extern fn CcordCode ccord_global_init();
@@ -1167,3 +1167,5 @@ extern fn void discord_application_commands_cleanup(DiscordApplicationCommands *
 extern fn CcordCode discord_create_guild_application_command(Discord *client, U64Snowflake application_id, U64Snowflake guild_id, DiscordCreateGuildApplicationCommand *params, DiscordRetApplicationCommands *ret);
 extern fn ulong discord_timestamp(Discord *client);
 extern fn void discord_update_presence(Discord *client, DiscordPresenceUpdate *presence);
+extern fn void discord_set_on_interaction_create(Discord* client, OnInteraction callback);
+extern fn CcordCode discord_create_interaction_response(Discord *client, U64Snowflake interaction_id, char *interaction_token, DiscordInteractionResponse *params, DiscordRetInteractionResponse *ret);
