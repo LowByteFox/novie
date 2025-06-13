@@ -1,7 +1,9 @@
 module novie;
 
+import concord;
 import concord::raw;
 import std::io;
+import std::core::mem;
 import libc;
 
 extern fn int get_ping_ms(Discord*);
@@ -16,40 +18,43 @@ fn void on_ping(Discord *client, DiscordInteraction *event)
     io::bprintf(&buf, "pong %dms!", raw::discord_get_ping(client));
     DiscordInteractionResponse params = {
         .type =  DiscordInteractionCallbackTypes.CHANNEL_MESSAGE_WITH_SOURCE,
-        .data = &&(DiscordInteractionCallbackData) { .content = &buf },
+        .data = &&(DiscordInteractionCallbackData) { .content = (ZString) &buf },
     };
     raw::discord_create_interaction_response(client, event.id, event.token,
         &params, null);
 }
 
-fn void on_ready(Discord *client)
+fn void on_ready(Bot *bot, DiscordReady *event)
 {
-    DiscordActivity[] activities = {
-        {
-            .name = "games with Cyano",
-            .type =  DiscordActivityTypes.GAME,
-        }
-    };
+    @pool() {
+        DiscordActivities activities;
+        activities.add_activity({
+            .name = "to birds",
+            .type = DiscordActivityTypes.LISTENING,
+        });
 
-    DiscordPresenceUpdate status = {
-        .activities = &&(DiscordActivities) { .size = 1, .array = activities.ptr },
-        .status = "online",
-        .afk = false,
-        .since = raw::discord_timestamp(client),
-    };
+        DiscordPresenceUpdate status = {
+            .activities = &activities,
+            .status = "online",
+            .afk = false,
+            .since = bot.now(),
+        };
 
-    raw::discord_update_presence(client, &status);
+        bot.set_presence(&status);
+    };
 }
 
 fn int main(String[] args)
 {
     raw::ccord_global_init();
-    CcordSzbufReadonly value;
-    Discord *bot = raw::discord_config_init("config.json");
-    char*[] keys = {"discord", "guild_id"};
-    value = raw::discord_config_get_field(bot, keys.ptr, 2);
-    defer raw::discord_run(bot);
+    Bot bot;
+    defer bot.free();
+    bot.init_from_cfg(mem, "config.json");
+    CcordSzbufReadonly value = bot.cfg_get({"discord", "guild_id"});
 
-    novie::handler::init(libc::strtol(value.start, null, 10), bot, &on_ready);
+    bot.set_on_ready(&on_ready);
+
+    // handler::init(value.start.str_view()[:value.size].to_long()!!, bot.client, &on_ready);
+    bot.run();
 	return 0;
 }

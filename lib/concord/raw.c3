@@ -319,12 +319,12 @@ enum DiscordInteractionCallbackTypes : (inline DiscordInteractionCallbackTypesTy
 }
 
 struct CcordSzbufReadonly {
-    char *start;
+    ZString start;
     usz size;
 }
 
 struct DiscordApplicationCommandOptionChoice {
-    char *name;
+    ZString name;
     JsonChar *value;
 }
 
@@ -340,14 +340,14 @@ struct Integers {
 
 struct DiscordApplicationCommandOption {
     DiscordApplicationCommandOptionTypesType type;
-    char *name;
-    char *description;
+    ZString name;
+    ZString description;
     bool required;
     DiscordApplicationCommandOptionChoices *choices;
     DiscordApplicationCommandOptions *options;
     Integers *channel_types;
-    char *min_value;
-    char *max_value;
+    ZString min_value;
+    ZString max_value;
     bool autocomplete;
 }
 
@@ -357,8 +357,8 @@ struct DiscordApplicationCommandOptions {
 }
 
 struct DiscordCreateGuildApplicationCommand {
-    char *name;
-    char *description;
+    ZString name;
+    ZString description;
     DiscordApplicationCommandOptions *options;
     U64Bitmask default_member_permissions;
     bool dm_permission;
@@ -376,7 +376,7 @@ struct DiscordResolvedData {
 }
 
 struct DiscordApplicationCommandInteractionDataOption {
-    char *name;
+    ZString name;
     DiscordApplicationCommandOptionTypesType type;
     JsonChar *value;
     DiscordApplicationCommandInteractionDataOptions *options;
@@ -390,7 +390,7 @@ struct DiscordApplicationCommandInteractionDataOptions {
 
 struct Strings {
     int size;
-    char **array;
+    ZString *array;
 }
 
 struct Snowflakes {
@@ -400,17 +400,17 @@ struct Snowflakes {
 
 struct DiscordUser {
     U64Snowflake id;
-    char *username;
-    char *discriminator;
-    char *avatar;
+    ZString username;
+    ZString discriminator;
+    ZString avatar;
     bool bot;
     bool system;
     bool mfa_enabled;
-    char *banner;
+    ZString banner;
     int accent_color;
-    char *locale;
+    ZString locale;
     bool verified;
-    char *email;
+    ZString email;
     U64Bitmask flags;
     DiscordPremiumTypesType premium_type;
     U64Bitmask public_flags;
@@ -418,7 +418,7 @@ struct DiscordUser {
 
 struct DiscordEmoji {
     U64Snowflake id;
-    char *name;
+    ZString name;
     Snowflakes *roles;
     DiscordUser *user;
     bool require_colons;
@@ -428,9 +428,9 @@ struct DiscordEmoji {
 }
 
 struct DiscordSelectOption {
-    char *label;
-    char *value;
-    char *description;
+    ZString label;
+    ZString value;
+    ZString description;
     DiscordEmoji *emoji;
     bool is_default;
 }
@@ -441,12 +441,12 @@ struct DiscordSelectOptions {
 }
 
 struct DiscordComponentMedia {
-    char *url;
+    ZString url;
 }
 
 struct DiscordComponentItem {
     DiscordComponentMedia *media;
-    char *description;
+    ZString description;
     bool spoiler;
 }
 
@@ -458,26 +458,26 @@ struct DiscordComponentItems {
 struct DiscordComponent {
     U64Snowflake id;
     DiscordComponentTypesType type;
-    char *custom_id;
+    ZString custom_id;
     U64Snowflake sku_id;
     DiscordComponentStylesType style;
-    char *label;
+    ZString label;
     DiscordEmoji *emoji;
-    char *url;
+    ZString url;
     DiscordSelectOptions *options;
-    char *placeholder;
+    ZString placeholder;
     int min_values;
     int max_values;
     DiscordComponents *components;
     int min_length;
     int max_length;
     bool required;
-    char *value;
+    ZString value;
     bool disabled;
     DiscordComponent *accessory;
     DiscordComponentMedia *media;
-    char *content;
-    char *description;
+    ZString content;
+    ZString description;
     bool spoiler;
     DiscordComponentItems *items;
     DiscordComponentMedia *file;
@@ -493,11 +493,11 @@ struct DiscordComponents {
 
 struct DiscordInteractionData {
     U64Snowflake id;
-    char *name;
+    ZString name;
     DiscordApplicationCommandTypesType type;
     DiscordResolvedData *resolved;
     DiscordApplicationCommandInteractionDataOptions *options;
-    char *custom_id;
+    ZString custom_id;
     DiscordComponentTypesType component_type;
     Strings *values;
     U64Snowflake target_id;
@@ -506,8 +506,8 @@ struct DiscordInteractionData {
 
 struct DiscordGuildMember {
     DiscordUser *user;
-    char *nick;
-    char *avatar;
+    ZString nick;
+    ZString avatar;
     Snowflakes *roles;
     U64UnixMs joined_at;
     U64UnixMs premiun_since;
@@ -551,10 +551,10 @@ struct DiscordThreadMember {
 
 struct DiscordThreadTag {
     U64Snowflake id;
-    char *name;
+    ZString name;
     bool moderated;
     U64Snowflake emoji_id;
-    char *emoji_name;
+    ZString emoji_name;
 }
 
 struct DiscordThreadTags {
@@ -564,7 +564,7 @@ struct DiscordThreadTags {
 
 struct DiscordThreadDefaultReaction {
     U64Snowflake emoji_id;
-    char *emoji_name;
+    ZString emoji_name;
 }
 
 struct DiscordChannel {
@@ -573,21 +573,21 @@ struct DiscordChannel {
     U64Snowflake guild_id;
     int position;
     DiscordOverwrites *permission_overwrites;
-    char *name;
-    char *topic;
+    ZString name;
+    ZString topic;
     bool nsfw;
     U64Snowflake last_message_id;
     int bitrate;
     int user_limit;
     int rate_limit_per_user;
     DiscordUsers *recipients;
-    char *icon;
+    ZString icon;
     U64Snowflake owner_id;
     U64Snowflake application_id;
     bool managed;
     U64Snowflake parent_id;
     U64UnixMs last_pin_timestamp;
-    char *rtc_region;
+    ZString rtc_region;
     int voice_quality_mode;
     int message_count;
     int member_count;
@@ -616,19 +616,19 @@ struct DiscordUsers {
 }
 
 struct DiscordAttachment {
-    char *content;
+    ZString content;
     U64Snowflake id;
-    char *filename;
-    char *description;
-    char *content_type;
+    ZString filename;
+    ZString description;
+    ZString content_type;
     usz size;
-    char *url;
-    char *proxy_url;
+    ZString url;
+    ZString proxy_url;
     int height;
     int width;
     bool ephemeral;
     int duration_secs;
-    char *waveform;
+    ZString waveform;
     U64Bitmask flags;
 }
 
@@ -638,21 +638,21 @@ struct DiscordAttachments {
 }
 
 struct DiscordEmbedFooter {
-    char *text;
-    char *icon_url;
-    char *proxy_icon_url;
+    ZString text;
+    ZString icon_url;
+    ZString proxy_icon_url;
 }
 
 struct DiscordEmbedImage {
-    char *icon_url;
-    char *proxy_icon_url;
+    ZString icon_url;
+    ZString proxy_icon_url;
     int height;
     int width;
 }
 
 struct DiscordEmbedThumbnail {
-    char *url;
-    char *proxy_url;
+    ZString url;
+    ZString proxy_url;
     int height;
     int width;
 }
@@ -660,20 +660,20 @@ struct DiscordEmbedThumbnail {
 alias DiscordEmbedVideo = DiscordEmbedThumbnail;
 
 struct DiscordEmbedProvider {
-    char *name;
-    char *url;
+    ZString name;
+    ZString url;
 }
 
 struct DiscordEmbedAuthor {
-    char *name;
-    char *url;
-    char *icon_url;
-    char *proxy_icon_url;
+    ZString name;
+    ZString url;
+    ZString icon_url;
+    ZString proxy_icon_url;
 }
 
 struct DiscordEmbedField {
-    char *name;
-    char *value;
+    ZString name;
+    ZString value;
     bool is_inline;
 }
 
@@ -683,10 +683,10 @@ struct DiscordEmbedFields {
 }
 
 struct DiscordEmbed {
-    char *title;
-    char *type;
-    char *description;
-    char *url;
+    ZString title;
+    ZString type;
+    ZString description;
+    ZString url;
     U64UnixMs timestamp;
     int color;
     DiscordEmbedFooter *footer;
@@ -714,7 +714,7 @@ struct DiscordReaction {
     bool me;
     bool me_burst;
     DiscordEmoji *emoji;
-    char *burst_colors;
+    ZString burst_colors;
 }
 
 struct DiscordReactions {
@@ -724,7 +724,7 @@ struct DiscordReactions {
 
 struct DiscordMessageActivity {
     DiscordMessageActivityTypeType type;
-    char *party_id;
+    ZString party_id;
 }
 
 struct Bitmasks {
@@ -745,31 +745,31 @@ struct DiscordTeamMembers {
 }
 
 struct DiscordTeam {
-    char *icon;
+    ZString icon;
     U64Snowflake id;
     DiscordTeamMembers *members;
-    char *name;
+    ZString name;
     U64Snowflake owner_user_id;
 }
 
 struct DiscordApplication {
     U64Snowflake id;
-    char *name;
-    char *icon;
-    char *description;
+    ZString name;
+    ZString icon;
+    ZString description;
     Strings *rpc_originl;
     bool bot_public;
     bool bot_require_code_grant;
-    char *terms_of_service_url;
-    char *privacy_policy_url;
+    ZString terms_of_service_url;
+    ZString privacy_policy_url;
     DiscordUser *owner;
-    char *summary;
-    char *verify_key;
+    ZString summary;
+    ZString verify_key;
     DiscordTeam *team;
     U64Snowflake guild_id;
     U64Snowflake primary_sku_id;
-    char *slug;
-    char *cover_image;
+    ZString slug;
+    ZString cover_image;
     U64Bitmask flags;
 }
 
@@ -783,14 +783,14 @@ struct DiscordMessageReference {
 struct DiscordMessageInterration {
     U64Snowflake id;
     DiscordInteractionTypesType type;
-    char *name;
+    ZString name;
     DiscordUser *user;
     DiscordGuildMember *member;
 }
 
 struct DiscordStickerItem {
     U64Snowflake id;
-    char *name;
+    ZString name;
     DiscordStickerFormatTypesType format_type;
 }
 
@@ -802,9 +802,9 @@ struct DiscordStickerItems {
 struct DiscordSticker {
     U64Snowflake id;
     U64Snowflake pack_id;
-    char *name;
-    char *description;
-    char *tags;
+    ZString name;
+    ZString description;
+    ZString tags;
     DiscordStickerTypesType type;
     DiscordStickerFormatTypesType format_type;
     bool available;
@@ -820,7 +820,7 @@ struct DiscordStickers {
 
 struct DiscordRoleSubscriptionData {
     U64Snowflake role_subscription_listing_id;
-    char *tier_name;
+    ZString tier_name;
     int total_months_subscribed;
     bool is_renewal;
 }
@@ -831,7 +831,7 @@ struct DiscordMessage {
     U64Snowflake guild_id;
     DiscordUser *author;
     DiscordGuildMember *member;
-    char *content;
+    ZString content;
     U64UnixMs timestamp;
     U64UnixMs edited_timestamp;
     bool tts;
@@ -871,11 +871,11 @@ struct DiscordInteraction {
     U64Snowflake channel_id;
     DiscordGuildMember *member;
     DiscordUser *user;
-    char *token;
+    ZString token;
     int version;
     DiscordMessage *message;
-    char *locale;
-    char *guild_locale;
+    ZString locale;
+    ZString guild_locale;
 }
 
 struct DiscordRoleTag {
@@ -891,11 +891,11 @@ struct DiscordRoleTags {
 
 struct DiscordRole {
     U64Snowflake id;
-    char *name;
+    ZString name;
     int color;
     bool hoist;
-    char *icon;
-    char *unicode_emoji;
+    ZString icon;
+    ZString unicode_emoji;
     int position;
     U64Bitmask permissions;
     bool managed;
@@ -918,7 +918,7 @@ struct DiscordVoiceState {
     U64Snowflake channel_id;
     U64Snowflake user_id;
     DiscordGuildMember *member;
-    char *session_id;
+    ZString session_id;
     bool deaf;
     bool mute;
     bool self_deaf;
@@ -940,9 +940,9 @@ struct DiscordGuildMembers {
 }
 
 struct DiscordClientStatus {
-    char *desktop;
-    char *mobile;
-    char *web;
+    ZString desktop;
+    ZString mobile;
+    ZString web;
 }
 
 struct DiscordActivityTimestamps {
@@ -951,32 +951,32 @@ struct DiscordActivityTimestamps {
 }
 
 struct DiscordActivityEmoji {
-    char *name;
+    ZString name;
     U64Snowflake id;
     bool animated;
 }
 
 struct DiscordActivityParty {
-    char *id;
+    ZString id;
     Integers *size;
 }
 
 struct DiscordActivityAssets {
-    char *large_image;
-    char *large_text;
-    char *small_image;
-    char *small_text;
+    ZString large_image;
+    ZString large_text;
+    ZString small_image;
+    ZString small_text;
 }
 
 struct DiscordActivitySecrets {
-    char *join;
-    char *spectate;
-    char *match;
+    ZString join;
+    ZString spectate;
+    ZString match;
 }
 
 struct DiscordActivityButton {
-    char *label;
-    char *url;
+    ZString label;
+    ZString url;
 }
 
 struct DiscordActivityButtons {
@@ -985,14 +985,14 @@ struct DiscordActivityButtons {
 }
 
 struct DiscordActivity {
-    char *name;
+    ZString name;
     DiscordActivityTypesType type;
-    char *url;
+    ZString url;
     U64UnixMs created_at;
     DiscordActivityTimestamps *timestamps;
     U64Snowflake application_id;
-    char *details;
-    char *state;
+    ZString details;
+    ZString state;
     DiscordActivityEmoji *emoji;
     DiscordActivityParty *party;
     DiscordActivityAssets *assets;
@@ -1010,7 +1010,7 @@ struct DiscordActivities {
 struct DiscordPresenceUpdate {
     DiscordUser *user;
     U64Snowflake guild_id;
-    char *status;
+    ZString status;
     DiscordClientStatus *client_status;
     DiscordActivities *activities;
     U64UnixMs since;
@@ -1024,9 +1024,9 @@ struct DiscordPresenceUpdates {
 
 struct DiscordWelcomeScreenChannel {
     U64Snowflake channel_id;
-    char *description;
+    ZString description;
     U64Snowflake emoji_id;
-    char *emoji_name;
+    ZString emoji_name;
 }
 
 struct DiscordWelcomeScreenChannels {
@@ -1035,7 +1035,7 @@ struct DiscordWelcomeScreenChannels {
 }
 
 struct DiscordWelcomeScreen {
-    char *description;
+    ZString description;
     DiscordWelcomeScreenChannels *welcome_channels;
 }
 
@@ -1043,7 +1043,7 @@ struct DiscordStageInstance {
     U64Snowflake id;
     U64Snowflake guild_id;
     U64Snowflake channel_id;
-    char *topic;
+    ZString topic;
     DiscordPrivacyLevelType privacy_level;
     bool discoverable_disabled;
 }
@@ -1054,7 +1054,7 @@ struct DiscordStageInstances {
 }
 
 struct DiscordGuildScheduledEventEntityMetadata {
-    char *location;
+    ZString location;
 }
 
 struct DiscordGuildScheduledEvent {
@@ -1062,8 +1062,8 @@ struct DiscordGuildScheduledEvent {
     U64Snowflake guild_id;
     U64Snowflake channel_id;
     U64Snowflake creator_id;
-    char *name;
-    char *description;
+    ZString name;
+    ZString description;
     U64UnixMs scheduled_start_time;
     U64UnixMs scheduled_end_time;
     DiscordGuildScheduledEventPrivacyLevelType privacy_level;
@@ -1073,7 +1073,7 @@ struct DiscordGuildScheduledEvent {
     DiscordGuildScheduledEventEntityMetadata *entity_metadata;
     DiscordUser *creator;
     int user_count;
-    char *image;
+    ZString image;
 }
 
 struct DiscordGuildScheduledEvents {
@@ -1083,11 +1083,11 @@ struct DiscordGuildScheduledEvents {
 
 struct DiscordGuild {
     U64Snowflake id;
-    char *name;
-    char *icon;
-    char *icon_hash;
-    char *splash;
-    char *discovery_splash;
+    ZString name;
+    ZString icon;
+    ZString icon_hash;
+    ZString splash;
+    ZString discovery_splash;
     bool owner;
     U64Snowflake owner_id;
     U64Bitmask permissions;
@@ -1117,12 +1117,12 @@ struct DiscordGuild {
     DiscordPresenceUpdates *presences;
     int max_presences;
     int min_presences;
-    char *vanity_url_code;
-    char *description;
-    char *banner;
+    ZString vanity_url_code;
+    ZString description;
+    ZString banner;
     DiscordPremiumTierType premium_tier;
     int premium_subscribtion_count;
-    char *preffered_locale;
+    ZString preffered_locale;
     U64Snowflake public_updates_channel_id;
     int max_video_channel_users;
     int approximate_member_count;
@@ -1144,7 +1144,7 @@ struct DiscordReady {
     int v;
     DiscordUser *user;
     DiscordGuilds *guilds;
-    char *session_id;
+    ZString session_id;
     Integers *shard;
     DiscordApplication *application;
 }
@@ -1154,8 +1154,8 @@ struct DiscordApplicationCommand {
     DiscordApplicationCommandTypesType type;
     U64Snowflake application_id;
     U64Snowflake guild_id;
-    char *name;
-    char *description;
+    ZString name;
+    ZString description;
     DiscordApplicationCommandOptions *options;
     U64Bitmask default_member_permissions;
     bool dm_permission;
@@ -1191,13 +1191,13 @@ struct DiscordRetApplicationCommands {
 struct DiscordInteractionCallbackData {
     DiscordComponents *components;
     bool tts;
-    char *content;
+    ZString content;
     DiscordEmbeds *embeds;
     U64Bitmask flags;
     DiscordAttachments *attachments;
     DiscordApplicationCommandOptionChoices *choices;
-    char *custom_id;
-    char *title;
+    ZString custom_id;
+    ZString title;
 }
 
 struct DiscordInteractionResponse {
@@ -1240,19 +1240,25 @@ alias OnInteraction = fn void(Discord*, DiscordInteraction*);
 /* === FNS === */
 extern fn CcordCodeType ccord_global_init();
 
-extern fn Discord* discord_init(char* token);
-extern fn Discord* discord_config_init(char* config_file);
+extern fn Discord* discord_init(ZString token);
+extern fn Discord* discord_config_init(ZString config_file);
 extern fn CcordCodeType discord_run(Discord *client);
 extern fn void discord_cleanup(Discord *client);
 extern fn int discord_get_ping(Discord *client);
+extern fn CcordSzbufReadonly discord_config_get_field(Discord *client, ZString *path, uint depth);
+extern fn DiscordUser *discord_get_self(Discord *client);
+extern fn void discord_shutdown(Discord *client);
+extern fn void discord_reconnect(Discord *client, bool resume);
+extern fn void discord_set_data(Discord *client, void *data);
+extern fn void *discord_get_data(Discord *client);
+extern fn U64UnixMs discord_timestamp(Discord *client);
+extern fn void discord_set_presence(Discord *client, DiscordPresenceUpdate *presence);
+extern fn void discord_update_presence(Discord *client, DiscordPresenceUpdate *presence);
 
-extern fn CcordSzbufReadonly discord_config_get_field(Discord *client, char **path, uint depth);
 extern fn void discord_set_on_ready(Discord *client, OnReady callback);
 extern fn CcordCodeType discord_get_guild_application_commands(Discord *client, U64Snowflake application_id, U64Snowflake guild_id, DiscordRetApplicationCommands *ret);
 extern fn CcordCodeType discord_delete_guild_application_command(Discord *client, U64Snowflake application_id, U64Snowflake guild_id, U64Snowflake command_id, DiscordRet *ret);
 extern fn void discord_application_commands_cleanup(DiscordApplicationCommands *self);
 extern fn CcordCodeType discord_create_guild_application_command(Discord *client, U64Snowflake application_id, U64Snowflake guild_id, DiscordCreateGuildApplicationCommand *params, DiscordRetApplicationCommands *ret);
-extern fn ulong discord_timestamp(Discord *client);
-extern fn void discord_update_presence(Discord *client, DiscordPresenceUpdate *presence);
 extern fn void discord_set_on_interaction_create(Discord* client, OnInteraction callback);
-extern fn CcordCodeType discord_create_interaction_response(Discord *client, U64Snowflake interaction_id, char *interaction_token, DiscordInteractionResponse *params, DiscordRetInteractionResponse *ret);
+extern fn CcordCodeType discord_create_interaction_response(Discord *client, U64Snowflake interaction_id, ZString interaction_token, DiscordInteractionResponse *params, DiscordRetInteractionResponse *ret);
