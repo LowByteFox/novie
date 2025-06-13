@@ -4,15 +4,19 @@ import concord::raw;
 import std::io;
 import libc;
 
+extern fn int get_ping_ms(Discord*);
+
 novie::handler::GuildCommand[] commands = {
     {{ .name = "ping", .description = "pong!" }, &on_ping },
 };
 
 fn void on_ping(Discord *client, DiscordInteraction *event)
 {
+    char[256] buf;
+    io::bprintf(&buf, "pong %dms!", get_ping_ms(client));
     DiscordInteractionResponse params = {
         .type = raw::DISCORD_INTERACTION_CHANNEL_MESSAGE_WITH_SOURCE,
-        .data = &&(DiscordInteractionCallbackData) { .content = "pong!" },
+        .data = &&(DiscordInteractionCallbackData) { .content = &buf },
     };
     raw::discord_create_interaction_response(client, event.id, event.token,
         &params, null);
