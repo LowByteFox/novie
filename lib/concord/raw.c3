@@ -6,234 +6,317 @@ alias U64Bitmask = ulong;
 alias U64Snowflake = ulong;
 alias JsonChar = char;
 
-alias CcordCode = int;
-const CcordCode CCORD_MALFORMED_PAYLOAD = -12;
-const CcordCode CCORD_FULL_WORKER = -11;
-const CcordCode CCORD_RESOURCE_UNAVAILABLE = -10;
-const CcordCode CCORD_UNAVAILABLE = -10;
-const CcordCode CCORD_RESOURCE_OWNERSHIP = -9;
-const CcordCode CCORD_OWNERSHIP = -9; 
-const CcordCode CCORD_GLOBAL_INIT = -8;
-const CcordCode CCORD_CURLM_INTERNAL = -7;
-const CcordCode CCORD_CURLE_INTERNAL = -6;
-const CcordCode CCORD_BAD_JSON = -5;
-const CcordCode CCORD_BAD_PARAMETER = -4;
-const CcordCode CCORD_UNUSUAL_HTTP_CODE = -3;
-const CcordCode CCORD_CURL_NO_RESPONSE = -2;
-const CcordCode CCORD_HTTP_CODE = -1;
-const CcordCode CCORD_OK = 0;
-const CcordCode CCORD_PENDING = 1;
-const CcordCode CCORD_DISCORD_JSON_CODE = 100;
-const CcordCode CCORD_DISCORD_BAD_AUTH = 101;
-const CcordCode CCORD_DISCORD_RATELIMIT = 102;
-const CcordCode CCORD_DISCORD_CONNECTION = 103;
+typedef CcordCodeType = int;
+enum CcordCode : (inline CcordCodeType v)
+{
+    MALFORMED_PAYLOAD = -12,
+    FULL_WORKER = -11,
+    RESOURCE_UNAVAILABLE = -10,
+    UNAVAILABLE = -10,
+    RESOURCE_OWNERSHIP = -9,
+    OWNERSHIP = -9, 
+    GLOBAL_INIT = -8,
+    CURLM_INTERNAL = -7,
+    CURLE_INTERNAL = -6,
+    BAD_JSON = -5,
+    BAD_PARAMETER = -4,
+    UNUSUAL_HTTP_CODE = -3,
+    CURL_NO_RESPONSE = -2,
+    HTTP_CODE = -1,
+    OK = 0,
+    PENDING = 1,
+    DISCORD_JSON_CODE = 100,
+    DISCORD_BAD_AUTH = 101,
+    DISCORD_RATELIMIT = 102,
+    DISCORD_CONNECTION = 103
+}
 
-alias DiscordApplicationCommandTypes = int;
-const DiscordApplicationCommandTypes DISCORD_APPLICATION_CHAT_INPUT = 0;
-const DiscordApplicationCommandTypes DISCORD_APPLICATION_USER = 1;
-const DiscordApplicationCommandTypes DISCORD_APPLICATION_MESSAGE = 2;
+typedef DiscordApplicationCommandTypesType = int;
+enum DiscordApplicationCommandTypes : (inline DiscordApplicationCommandTypesType v)
+{
+    CHAT_INPUT = 0,
+    USER = 1,
+    MESSAGE = 2,
+}
 
-alias DiscordInteractionTypes = int;
-const DiscordInteractionTypes DISCORD_INTERACTION_PING = 1;
-const DiscordInteractionTypes DISCORD_INTERACTION_APPLICATION_COMMAND = 2;
-const DiscordInteractionTypes DISCORD_INTERACTION_MESSAGE_COMPONENT = 3;
-const DiscordInteractionTypes DISCORD_INTERACTION_APPLICATION_COMMAND_AUTOCOMPLETE = 4;
-const DiscordInteractionTypes DISCORD_INTERACTION_MODAL_SUBMIT = 5;
+typedef DiscordInteractionTypesType = int;
+enum DiscordInteractionTypes : (inline DiscordInteractionTypesType v) {
+    PING = 1,
+    APPLICATION_COMMAND = 2,
+    MESSAGE_COMPONENT = 3,
+    APPLICATION_COMMAND_AUTOCOMPLETE = 4,
+    MODAL_SUBMIT = 5,
+}
 
-alias DiscordComponentTypes = int;
-const DiscordComponentTypes DISCORD_COMPONENT_ACTION_ROW = 1;
-const DiscordComponentTypes DISCORD_COMPONENT_BUTTON = 2;
-const DiscordComponentTypes DISCORD_COMPONENT_SELECT_MENU = 3;
-const DiscordComponentTypes DISCORD_COMPONENT_TEXT_INPUT = 4;
-const DiscordComponentTypes DISCORD_COMPONENT_USER_SELECT = 5;
-const DiscordComponentTypes DISCORD_COMPONENT_ROLE_SELECT = 6;
-const DiscordComponentTypes DISCORD_COMPONENT_MENTION_SELECT = 7;
-const DiscordComponentTypes DISCORD_COMPONENT_CHANNEL_SELECT = 8;
-const DiscordComponentTypes DISCORD_COMPONENT_SECTION = 9;
-const DiscordComponentTypes DISCORD_COMPONENT_TEXT_DISPLAY = 10;
-const DiscordComponentTypes DISCORD_COMPONENT_THUMBNAIL = 11;
-const DiscordComponentTypes DISCORD_COMPONENT_MEDIA_GALLERY = 12;
-const DiscordComponentTypes DISCORD_COMPONENT_FILE = 13;
-const DiscordComponentTypes DISCORD_COMPONENT_SEPARATOR = 14;
-const DiscordComponentTypes DISCORD_COMPONENT_CONTENT_INVENTORY_ENTRY = 16;
-const DiscordComponentTypes DISCORD_COMPONENT_CONTAINER = 17;
+typedef DiscordComponentTypesType = int;
+enum DiscordComponentTypes : (inline DiscordComponentTypesType v)
+{
+    ACTION_ROW = 1,
+    BUTTON = 2,
+    SELECT_MENU = 3,
+    TEXT_INPUT = 4,
+    USER_SELECT = 5,
+    ROLE_SELECT = 6,
+    MENTION_SELECT = 7,
+    CHANNEL_SELECT = 8,
+    SECTION = 9,
+    TEXT_DISPLAY = 10,
+    THUMBNAIL = 11,
+    MEDIA_GALLERY = 12,
+    FILE = 13,
+    SEPARATOR = 14,
+    CONTENT_INVENTORY_ENTRY = 16,
+    CONTAINER = 17,
+}
 
-alias DiscordApplicationCommandOptionTypes = int;
-const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_SUB_COMMAND = 1;
-const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_SUB_COMMAND_GROUP = 2;
-const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_STRING = 3;
-const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_INTEGER = 4;
-const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_BOOLEAN = 5;
-const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_USER = 6;
-const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_CHANNEL = 7;
-const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_ROLE = 8;
-const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_MENTIONABLE = 9;
-const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_NUMBER = 10;
-const DiscordApplicationCommandOptionTypes DISCORD_APPLICATION_OPTION_ATTACHMENT = 11;
+typedef DiscordApplicationCommandOptionTypesType = int;
+enum DiscordApplicationCommandOptionTypes : (inline DiscordApplicationCommandOptionTypesType v)
+{
+    SUB_COMMAND = 1,
+    SUB_COMMAND_GROUP = 2,
+    STRING = 3,
+    INTEGER = 4,
+    BOOLEAN = 5,
+    USER = 6,
+    CHANNEL = 7,
+    ROLE = 8,
+    MENTIONABLE = 9,
+    NUMBER = 10,
+    ATTACHMENT = 11,
+}
 
-alias DiscordComponentStyles = int;
-const DiscordComponentStyles DISCORD_BUTTON_PRIMARY = 1;
-const DiscordComponentStyles DISCORD_BUTTON_SECONDARY = 2;
-const DiscordComponentStyles DISCORD_BUTTON_SUCCESS = 3;
-const DiscordComponentStyles DISCORD_BUTTON_DANGER = 4;
-const DiscordComponentStyles DISCORD_BUTTON_LINK = 5;
-const DiscordComponentStyles DISCORD_TEXT_SHORT = 1;
-const DiscordComponentStyles DISCORD_TEXT_PARAGRAPH = 2;
+typedef DiscordComponentStylesType = int;
+enum DiscordComponentStyles : (inline DiscordComponentStylesType v)
+{
+    BUTTON_PRIMARY = 1,
+    BUTTON_SECONDARY = 2,
+    BUTTON_SUCCESS = 3,
+    BUTTON_DANGER = 4,
+    BUTTON_LINK = 5,
+    TEXT_SHORT = 1,
+    TEXT_PARAGRAPH = 2,
+}
 
-alias DiscordPremiumTypes = int;
-const DiscordPremiumTypes DISCORD_PREMIUM_NONE = 0;
-const DiscordPremiumTypes DISCORD_PREMIUM_NITRO_CLASSIC = 1;
-const DiscordPremiumTypes DISCORD_PREMIUM_NITRO = 2;
+typedef DiscordPremiumTypesType = int;
+enum DiscordPremiumTypes : (inline DiscordPremiumTypesType v)
+{
+    NONE = 0,
+    NITRO_CLASSIC = 1,
+    NITRO = 2,
+}
 
-alias DiscordComponentSpacing = int;
-const DiscordComponentSpacing DISCORD_COMPONENT_SPACING_SMALL = 1;
-const DiscordComponentSpacing DISCORD_COMPONENT_SPACING_LARGE = 2;
+typedef DiscordComponentSpacingType = int;
+enum DiscordComponentSpacing : (inline DiscordComponentSpacingType v)
+{
+    SMALL = 1,
+    LARGE = 2,
+}
 
-alias DiscordChannelTypes = int;
-const DiscordChannelTypes DISCORD_CHANNEL_GUILD_TEXT = 0;
-const DiscordChannelTypes DISCORD_CHANNEL_DM = 1;
-const DiscordChannelTypes DISCORD_CHANNEL_GUILD_VOICE = 2;
-const DiscordChannelTypes DISCORD_CHANNEL_GROUP_DM = 3;
-const DiscordChannelTypes DISCORD_CHANNEL_GUILD_CATEGORY = 4;
-const DiscordChannelTypes DISCORD_CHANNEL_GUILD_ANNOUNCEMENT = 5;
-const DiscordChannelTypes DISCORD_CHANNEL_GUILD_NEWS = 5;
-const DiscordChannelTypes DISCORD_CHANNEL_GUILD_STORE = 6;
-const DiscordChannelTypes DISCORD_CHANNEL_ANNOUNCEMENT_THREAD = 10;
-const DiscordChannelTypes DISCORD_CHANNEL_GUILD_NEWS_THREAD = 10;
-const DiscordChannelTypes DISCORD_CHANNEL_GUILD_PUBLIC_THREAD = 11;
-const DiscordChannelTypes DISCORD_CHANNEL_GUILD_PRIVATE_THREAD = 12;
-const DiscordChannelTypes DISCORD_CHANNEL_GUILD_STAGE_VOICE = 13;
-const DiscordChannelTypes DISCORD_CHANNEL_GUILD_DIRECTORY = 14;
-const DiscordChannelTypes DISCORD_CHANNEL_GUILD_FORUM = 15;
-const DiscordChannelTypes DISCORD_CHANNEL_GUILD_MEDIA = 16;
+typedef DiscordChannelTypesType = int;
+enum DiscordChannelTypes : (inline DiscordChannelTypesType v)
+{
+    GUILD_TEXT = 0,
+    DM = 1,
+    GUILD_VOICE = 2,
+    GROUP_DM = 3,
+    GUILD_CATEGORY = 4,
+    GUILD_ANNOUNCEMENT = 5,
+    GUILD_NEWS = 5,
+    GUILD_STORE = 6,
+    ANNOUNCEMENT_THREAD = 10,
+    GUILD_NEWS_THREAD = 10,
+    GUILD_PUBLIC_THREAD = 11,
+    GUILD_PRIVATE_THREAD = 12,
+    GUILD_STAGE_VOICE = 13,
+    GUILD_DIRECTORY = 14,
+    GUILD_FORUM = 15,
+    GUILD_MEDIA = 16,
+}
 
-alias DiscordSortOrderTypes = int;
-const DiscordSortOrderTypes DISCORD_SORT_ORDER_LATEST_ACTIVITY = 0;
-const DiscordSortOrderTypes DISCORD_SORT_ORDER_CREATION_DATE = 1;
+typedef DiscordSortOrderTypesType = int;
+enum DiscordSortOrderTypes : (inline DiscordSortOrderTypesType v)
+{
+    LATEST_ACTIVITY = 0,
+    CREATION_DATE = 1,
+}
 
-alias DiscordForumLayoutTypes = int;
-const DiscordForumLayoutTypes DISCORD_FORUM_LAYOUT_NOT_SET = 0;
-const DiscordForumLayoutTypes DISCORD_FORUM_LAYOUT_LIST_VIEW = 1;
-const DiscordForumLayoutTypes DISCORD_FORUM_LAYOUT_GALLERY_VIEW = 2;
+typedef DiscordForumLayoutTypesType = int;
+enum DiscordForumLayoutTypes : (inline DiscordForumLayoutTypesType v)
+{
+    NOT_SET = 0,
+    LIST_VIEW = 1,
+    GALLERY_VIEW = 2,
+}
 
-alias DiscordMessageTypes = int;
-const DiscordMessageTypes DISCORD_MESSAGE_DEFAULT = 0;
-const DiscordMessageTypes DISCORD_MESSAGE_RECIPIENT_ADD = 1;
-const DiscordMessageTypes DISCORD_MESSAGE_RECIPIENT_REMOVE = 2;
-const DiscordMessageTypes DISCORD_MESSAGE_CALL = 3;
-const DiscordMessageTypes DISCORD_MESSAGE_CHANNEL_NAME_CHANGE = 4;
-const DiscordMessageTypes DISCORD_MESSAGE_CHANNEL_ICON_CHANGE = 5;
-const DiscordMessageTypes DISCORD_MESSAGE_CHANNEL_PINNED_MESSAGE = 6;
-const DiscordMessageTypes DISCORD_MESSAGE_GUILD_MEMBER_JOIN = 7;
-const DiscordMessageTypes DISCORD_MESSAGE_USER_PREMIUM_GUILD_SUBSCRIPTION = 8;
-const DiscordMessageTypes DISCORD_MESSAGE_USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1 = 9;
-const DiscordMessageTypes DISCORD_MESSAGE_USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2 = 10;
-const DiscordMessageTypes DISCORD_MESSAGE_USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3 = 11;
-const DiscordMessageTypes DISCORD_MESSAGE_CHANNEL_FOLLOW_ADD = 12;
-const DiscordMessageTypes DISCORD_MESSAGE_GUILD_DISCOVERY_DISQUALIFIED = 14;
-const DiscordMessageTypes DISCORD_MESSAGE_GUILD_DISCOVERY_REQUALIFIED = 15;
-const DiscordMessageTypes DISCORD_MESSAGE_GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING = 16;
-const DiscordMessageTypes DISCORD_MESSAGE_GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING = 17;
-const DiscordMessageTypes DISCORD_MESSAGE_THREAD_CREATED = 18;
-const DiscordMessageTypes DISCORD_MESSAGE_REPLY = 19;
-const DiscordMessageTypes DISCORD_MESSAGE_CHAT_INPUT_COMMAND = 20;
-const DiscordMessageTypes DISCORD_MESSAGE_THREAD_STARTER_MESSAGE = 21;
-const DiscordMessageTypes DISCORD_MESSAGE_GUILD_INVITE_REMINDER = 22;
-const DiscordMessageTypes DISCORD_MESSAGE_CONTEXT_MENU_COMMAND = 23;
-const DiscordMessageTypes DISCORD_MESSAGE_AUTO_MODERATION_ACTION = 24;
-const DiscordMessageTypes DISCORD_MESSAGE_ROLE_SUBSCRIPTION_PURCHASE = 25;
-const DiscordMessageTypes DISCORD_MESSAGE_INTERACTION_PREMIUM_UPSELL = 26;
-const DiscordMessageTypes DISCORD_MESSAGE_STAGE_START = 27;
-const DiscordMessageTypes DISCORD_MESSAGE_STAGE_END = 28;
-const DiscordMessageTypes DISCORD_MESSAGE_STAGE_SPEAKER = 29;
-const DiscordMessageTypes DISCORD_MESSAGE_STAGE_TOPIC = 31;
-const DiscordMessageTypes DISCORD_MESSAGE_GUILD_APPLICATION_PREMIUM_SUBSCRIPTION = 32;
+typedef DiscordMessageTypesType = int;
+enum DiscordMessageTypes : (inline DiscordMessageTypesType v)
+{
+    DEFAULT = 0,
+    RECIPIENT_ADD = 1,
+    RECIPIENT_REMOVE = 2,
+    CALL = 3,
+    CHANNEL_NAME_CHANGE = 4,
+    CHANNEL_ICON_CHANGE = 5,
+    CHANNEL_PINNED_MESSAGE = 6,
+    GUILD_MEMBER_JOIN = 7,
+    USER_PREMIUM_GUILD_SUBSCRIPTION = 8,
+    USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1 = 9,
+    USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2 = 10,
+    USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3 = 11,
+    CHANNEL_FOLLOW_ADD = 12,
+    GUILD_DISCOVERY_DISQUALIFIED = 14,
+    GUILD_DISCOVERY_REQUALIFIED = 15,
+    GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING = 16,
+    GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING = 17,
+    THREAD_CREATED = 18,
+    REPLY = 19,
+    CHAT_INPUT_COMMAND = 20,
+    THREAD_STARTER_MESSAGE = 21,
+    GUILD_INVITE_REMINDER = 22,
+    CONTEXT_MENU_COMMAND = 23,
+    AUTO_MODERATION_ACTION = 24,
+    ROLE_SUBSCRIPTION_PURCHASE = 25,
+    INTERACTION_PREMIUM_UPSELL = 26,
+    STAGE_START = 27,
+    STAGE_END = 28,
+    STAGE_SPEAKER = 29,
+    STAGE_TOPIC = 31,
+    GUILD_APPLICATION_PREMIUM_SUBSCRIPTION = 32,
+}
 
-alias DiscordMessageActivityType = int;
-const DiscordMessageActivityType DISCORD_MESSAGE_ACTIVITY_JOIN = 1;
-const DiscordMessageActivityType DISCORD_MESSAGE_ACTIVITY_SPECTATE = 2;
-const DiscordMessageActivityType DISCORD_MESSAGE_ACTIVITY_LISTEN = 3;
-const DiscordMessageActivityType DISCORD_MESSAGE_ACTIVITY_JOIN_REQUEST = 5;
+typedef DiscordMessageActivityTypeType = int;
+enum DiscordMessageActivityType : (inline DiscordMessageActivityTypeType v)
+{
+    JOIN = 1,
+    SPECTATE = 2,
+    LISTEN = 3,
+    JOIN_REQUEST = 5,
+}
 
-alias DiscordMembershipState = int;
-const DiscordMembershipState DISCORD_MEMBERSHIP_INVITED = 1;
-const DiscordMembershipState DISCORD_MEMBERSHIP_ACCEPTED = 2;
+typedef DiscordMembershipStateType = int;
+enum DiscordMembershipState : (inline DiscordMembershipStateType v)
+{
+    INVITED = 1,
+    ACCEPTED = 2,
+}
 
-alias DiscordStickerFormatTypes = int;
-const DiscordStickerFormatTypes DISCORD_STICKER_FORMAT_PNG = 1;
-const DiscordStickerFormatTypes DISCORD_STICKER_FORMAT_APNG = 2;
-const DiscordStickerFormatTypes DISCORD_STICKER_FORMAT_LOTTIE = 3;
+typedef DiscordStickerFormatTypesType = int;
+enum DiscordStickerFormatTypes : (inline DiscordStickerFormatTypesType v)
+{
+    PNG = 1,
+    APNG = 2,
+    LOTTIE = 3,
+}
 
-alias DiscordStickerTypes = int;
-const DiscordStickerTypes DISCORD_STICKER_STANDARD = 1;
-const DiscordStickerTypes DISCORD_STICKER_GUILD = 2;
+typedef DiscordStickerTypesType = int;
+enum DiscordStickerTypes : (inline DiscordStickerTypesType v)
+{
+    STANDARD = 1,
+    GUILD = 2,
+}
 
-alias DiscordVerificationLevel = int;
-const DiscordVerificationLevel DISCORD_VERIFICATION_NONE = 0;
-const DiscordVerificationLevel DISCORD_VERIFICATION_LOW = 1;
-const DiscordVerificationLevel DISCORD_VERIFICATION_MEDIUM = 2;
-const DiscordVerificationLevel DISCORD_VERIFICATION_HIGH = 3;
-const DiscordVerificationLevel DISCORD_VERIFICATION_VERY_HIGH = 4;
+typedef DiscordVerificationLevelType = int;
+enum DiscordVerificationLevel : (inline DiscordVerificationLevelType v)
+{
+    NONE = 0,
+    LOW = 1,
+    MEDIUM = 2,
+    HIGH = 3,
+    VERY_HIGH = 4,
+}
 
-alias DiscordMessageNotificationLevel = int;
-const DiscordMessageNotificationLevel DISCORD_MESSAGE_NOTIFICATION_ALL_MESSAGES = 0;
-const DiscordMessageNotificationLevel DISCORD_MESSAGE_NOTIFICATION_ONLY_MESSAGES = 1;
+typedef DiscordMessageNotificationLevelType = int;
+enum DiscordMessageNotificationLevel : (inline DiscordMessageNotificationLevelType v)
+{
+    ALL_MESSAGES = 0,
+    ONLY_MESSAGES = 1,
+}
 
-alias DiscordExplicitContentFilterLevel = int;
-const DiscordExplicitContentFilterLevel DISCORD_EXPLICIT_CONTENT_DISABLED = 0;
-const DiscordExplicitContentFilterLevel DISCORD_EXPLICIT_CONTENT_MEMBERS_WITHOUT_ROLES = 1;
-const DiscordExplicitContentFilterLevel DISCORD_MESSAGE_NOTIFICATION_ALL_MEMBERS = 2;
+typedef DiscordExplicitContentFilterLevelType = int;
+enum DiscordExplicitContentFilterLevel : (inline DiscordExplicitContentFilterLevelType v)
+{
+    DISABLED = 0,
+    MEMBERS_WITHOUT_ROLES = 1,
+    MESSAGE_NOTIFICATION_ALL_MEMBERS = 2,
+}
 
-alias DiscordMfaLevel = int;
-const DiscordMfaLevel DISCORD_MFA_NONE = 0;
-const DiscordMfaLevel DISCORD_MFA_ELEVATED = 1;
+typedef DiscordMfaLevelType = int;
+enum DiscordMfaLevel : (inline DiscordMfaLevelType v)
+{
+    NONE = 0,
+    ELEVATED = 1,
+}
 
-alias DiscordActivityTypes = int;
-const DiscordActivityTypes DISCORD_ACTIVITY_GAME = 0;
-const DiscordActivityTypes DISCORD_ACTIVITY_STREAMING = 1;
-const DiscordActivityTypes DISCORD_ACTIVITY_LISTENING = 2;
-const DiscordActivityTypes DISCORD_ACTIVITY_WATCHING = 3;
-const DiscordActivityTypes DISCORD_ACTIVITY_CUSTOM = 4;
-const DiscordActivityTypes DISCORD_ACTIVITY_COMPETING = 5;
+typedef DiscordActivityTypesType = int;
+enum DiscordActivityTypes : (inline DiscordActivityTypesType v)
+{
+    GAME = 0,
+    STREAMING = 1,
+    LISTENING = 2,
+    WATCHING = 3,
+    CUSTOM = 4,
+    COMPETING = 5,
+}
 
-alias DiscordPremiumTier = int;
-const DiscordPremiumTier DISCORD_PREMIUM_TIER_NONE = 0;
-const DiscordPremiumTier DISCORD_PREMIUM_TIER_1 = 1;
-const DiscordPremiumTier DISCORD_PREMIUM_TIER_2 = 2;
-const DiscordPremiumTier DISCORD_PREMIUM_TIER_3 = 3;
+typedef DiscordPremiumTierType = int;
+enum DiscordPremiumTier : (inline DiscordPremiumTierType v)
+{
+    NONE = 0,
+    ONE = 1,
+    TWO = 2,
+    THREE = 3,
+}
 
-alias DiscordGuildNSFWLevel = int;
-const DiscordGuildNSFWLevel DISCORD_GUILD_NSFW_DEFAULT = 0;
-const DiscordGuildNSFWLevel DISCORD_GUILD_NSFW_EXPLICIT = 1;
-const DiscordGuildNSFWLevel DISCORD_GUILD_NSFW_SAFE = 2;
-const DiscordGuildNSFWLevel DISCORD_GUILD_NSFW_AGE_RESTRICTED = 3;
+typedef DiscordGuildNSFWLevelType = int;
+enum DiscordGuildNSFWLevel : (inline DiscordGuildNSFWLevelType v)
+{
+    DEFAULT = 0,
+    EXPLICIT = 1,
+    SAFE = 2,
+    AGE_RESTRICTED = 3,
+}
 
-alias DiscordPrivacyLevel = int;
-const DiscordPrivacyLevel DISCORD_PRIVACY_PUBLIC = 1;
-const DiscordPrivacyLevel DISCORD_PRIVACY_GUILD_ONLY = 2;
+typedef DiscordPrivacyLevelType = int;
+enum DiscordPrivacyLevel : (inline DiscordPrivacyLevelType v)
+{
+    PUBLIC = 1,
+    GUILD_ONLY = 2,
+}
 
-alias DiscordGuildScheduledEventPrivacyLevel = int;
-const DiscordGuildScheduledEventPrivacyLevel DISCORD_GUILD_SCHEDULED_EVENT_GUILD_ONLY = 2;
+typedef DiscordGuildScheduledEventPrivacyLevelType = int;
+enum DiscordGuildScheduledEventPrivacyLevel : (inline DiscordGuildScheduledEventPrivacyLevelType v)
+{
+    GUILD_ONLY = 2,
+}
 
-alias DiscordGuildScheduledEventStatus = int;
-const DiscordGuildScheduledEventStatus DISCORD_GUILD_SCHEDULED_EVENT_SCHEDULED = 1;
-const DiscordGuildScheduledEventStatus DISCORD_GUILD_SCHEDULED_EVENT_ACTIVE = 2;
-const DiscordGuildScheduledEventStatus DISCORD_GUILD_SCHEDULED_EVENT_COMPLETED = 3;
-const DiscordGuildScheduledEventStatus DISCORD_GUILD_SCHEDULED_EVENT_CANCELED = 4;
+typedef DiscordGuildScheduledEventStatusType = int;
+enum DiscordGuildScheduledEventStatus : (inline DiscordGuildScheduledEventStatusType v)
+{
+    SCHEDULED = 1,
+    ACTIVE = 2,
+    COMPLETED = 3,
+    CANCELED = 4,
+}
 
-alias DiscordGuildScheduledEventEntityTypes = int;
-const DiscordGuildScheduledEventEntityTypes DISCORD_GUILD_SCHEDULED_EVENT_ENTITY_STAGE_INSTANCE = 1;
-const DiscordGuildScheduledEventEntityTypes DISCORD_GUILD_SCHEDULED_EVENT_ENTITY_VOICE = 2;
-const DiscordGuildScheduledEventEntityTypes DISCORD_GUILD_SCHEDULED_EVENT_ENTITY_EXTERNAL = 3;
+typedef DiscordGuildScheduledEventEntityTypesType = int;
+enum DiscordGuildScheduledEventEntityTypes : (inline DiscordGuildScheduledEventEntityTypesType v)
+{
+    STAGE_INSTANCE = 1,
+    VOICE = 2,
+    EXTERNAL = 3,
+}
 
-alias DiscordInteractionCallbackTypes = int;
-const DiscordInteractionCallbackTypes DISCORD_INTERACTION_PONG = 1;
-const DiscordInteractionCallbackTypes DISCORD_INTERACTION_CHANNEL_MESSAGE_WITH_SOURCE = 4;
-const DiscordInteractionCallbackTypes DISCORD_INTERACTION_DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE = 5;
-const DiscordInteractionCallbackTypes DISCORD_INTERACTION_DEFERRED_UPDATE_MESSAGE = 6;
-const DiscordInteractionCallbackTypes DISCORD_INTERACTION_UPDATE_MESSAGE = 7;
-const DiscordInteractionCallbackTypes DISCORD_INTERACTION_APPLICATION_COMMAND_AUTOCOMPLETE_RESULT = 8;
-const DiscordInteractionCallbackTypes DISCORD_INTERACTION_MODAL = 9;
+typedef DiscordInteractionCallbackTypesType = int;
+enum DiscordInteractionCallbackTypes : (inline DiscordInteractionCallbackTypesType v)
+{
+    PONG = 1,
+    CHANNEL_MESSAGE_WITH_SOURCE = 4,
+    DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE = 5,
+    DEFERRED_UPDATE_MESSAGE = 6,
+    UPDATE_MESSAGE = 7,
+    APPLICATION_COMMAND_AUTOCOMPLETE_RESULT = 8,
+    MODAL = 9,
+}
 
 struct CcordSzbufReadonly {
     char *start;
@@ -256,7 +339,7 @@ struct Integers {
 }
 
 struct DiscordApplicationCommandOption {
-    DiscordApplicationCommandOptionTypes type;
+    DiscordApplicationCommandOptionTypesType type;
     char *name;
     char *description;
     bool required;
@@ -280,7 +363,7 @@ struct DiscordCreateGuildApplicationCommand {
     U64Bitmask default_member_permissions;
     bool dm_permission;
     bool default_permission;
-    DiscordApplicationCommandTypes type;
+    DiscordApplicationCommandTypesType type;
 }
 
 struct DiscordResolvedData {
@@ -294,7 +377,7 @@ struct DiscordResolvedData {
 
 struct DiscordApplicationCommandInteractionDataOption {
     char *name;
-    DiscordApplicationCommandOptionTypes type;
+    DiscordApplicationCommandOptionTypesType type;
     JsonChar *value;
     DiscordApplicationCommandInteractionDataOptions *options;
     bool focused;
@@ -329,7 +412,7 @@ struct DiscordUser {
     bool verified;
     char *email;
     U64Bitmask flags;
-    DiscordPremiumTypes premium_type;
+    DiscordPremiumTypesType premium_type;
     U64Bitmask public_flags;
 }
 
@@ -374,10 +457,10 @@ struct DiscordComponentItems {
 
 struct DiscordComponent {
     U64Snowflake id;
-    DiscordComponentTypes type;
+    DiscordComponentTypesType type;
     char *custom_id;
     U64Snowflake sku_id;
-    DiscordComponentStyles style;
+    DiscordComponentStylesType style;
     char *label;
     DiscordEmoji *emoji;
     char *url;
@@ -399,7 +482,7 @@ struct DiscordComponent {
     DiscordComponentItems *items;
     DiscordComponentMedia *file;
     bool divider;
-    DiscordComponentSpacing spacing;
+    DiscordComponentSpacingType spacing;
     int color;
 }
 
@@ -411,11 +494,11 @@ struct DiscordComponents {
 struct DiscordInteractionData {
     U64Snowflake id;
     char *name;
-    DiscordApplicationCommandTypes type;
+    DiscordApplicationCommandTypesType type;
     DiscordResolvedData *resolved;
     DiscordApplicationCommandInteractionDataOptions *options;
     char *custom_id;
-    DiscordComponentTypes component_type;
+    DiscordComponentTypesType component_type;
     Strings *values;
     U64Snowflake target_id;
     DiscordComponents *components;
@@ -486,7 +569,7 @@ struct DiscordThreadDefaultReaction {
 
 struct DiscordChannel {
     U64Snowflake id;
-    DiscordChannelTypes type;
+    DiscordChannelTypesType type;
     U64Snowflake guild_id;
     int position;
     DiscordOverwrites *permission_overwrites;
@@ -518,8 +601,8 @@ struct DiscordChannel {
     Snowflakes *applied_tags;
     DiscordThreadDefaultReaction *default_reaction_emoji;
     int default_thread_rate_limit_per_user;
-    DiscordSortOrderTypes default_sort_order;
-    DiscordForumLayoutTypes default_forum_layout;
+    DiscordSortOrderTypesType default_sort_order;
+    DiscordForumLayoutTypesType default_forum_layout;
 }
 
 struct DiscordChannels {
@@ -640,7 +723,7 @@ struct DiscordReactions {
 }
 
 struct DiscordMessageActivity {
-    DiscordMessageActivityType type;
+    DiscordMessageActivityTypeType type;
     char *party_id;
 }
 
@@ -650,7 +733,7 @@ struct Bitmasks {
 }
 
 struct DiscordTeamMember {
-    DiscordMembershipState membership_state;
+    DiscordMembershipStateType membership_state;
     Bitmasks *permissions;
     U64Snowflake team_id;
     DiscordUser *user;
@@ -699,7 +782,7 @@ struct DiscordMessageReference {
 
 struct DiscordMessageInterration {
     U64Snowflake id;
-    DiscordInteractionTypes type;
+    DiscordInteractionTypesType type;
     char *name;
     DiscordUser *user;
     DiscordGuildMember *member;
@@ -708,7 +791,7 @@ struct DiscordMessageInterration {
 struct DiscordStickerItem {
     U64Snowflake id;
     char *name;
-    DiscordStickerFormatTypes format_type;
+    DiscordStickerFormatTypesType format_type;
 }
 
 struct DiscordStickerItems {
@@ -722,8 +805,8 @@ struct DiscordSticker {
     char *name;
     char *description;
     char *tags;
-    DiscordStickerTypes type;
-    DiscordStickerFormatTypes format_type;
+    DiscordStickerTypesType type;
+    DiscordStickerFormatTypesType format_type;
     bool available;
     U64Snowflake guild_id;
     DiscordUser *user;
@@ -762,7 +845,7 @@ struct DiscordMessage {
     JsonChar *nonce;
     bool pinned;
     U64Snowflake webhook_id;
-    DiscordMessageTypes type;
+    DiscordMessageTypesType type;
     DiscordMessageActivity *activity;
     DiscordApplication *application;
     U64Snowflake application_id;
@@ -782,7 +865,7 @@ struct DiscordMessage {
 struct DiscordInteraction {
     U64Snowflake id;
     U64Snowflake application_id;
-    DiscordInteractionTypes type;
+    DiscordInteractionTypesType type;
     DiscordInteractionData *data;
     U64Snowflake guild_id;
     U64Snowflake channel_id;
@@ -903,7 +986,7 @@ struct DiscordActivityButtons {
 
 struct DiscordActivity {
     char *name;
-    DiscordActivityTypes type;
+    DiscordActivityTypesType type;
     char *url;
     U64UnixMs created_at;
     DiscordActivityTimestamps *timestamps;
@@ -961,7 +1044,7 @@ struct DiscordStageInstance {
     U64Snowflake guild_id;
     U64Snowflake channel_id;
     char *topic;
-    DiscordPrivacyLevel privacy_level;
+    DiscordPrivacyLevelType privacy_level;
     bool discoverable_disabled;
 }
 
@@ -983,9 +1066,9 @@ struct DiscordGuildScheduledEvent {
     char *description;
     U64UnixMs scheduled_start_time;
     U64UnixMs scheduled_end_time;
-    DiscordGuildScheduledEventPrivacyLevel privacy_level;
-    DiscordGuildScheduledEventStatus status;
-    DiscordGuildScheduledEventEntityTypes entity_type;
+    DiscordGuildScheduledEventPrivacyLevelType privacy_level;
+    DiscordGuildScheduledEventStatusType status;
+    DiscordGuildScheduledEventEntityTypesType entity_type;
     U64Snowflake entity_id;
     DiscordGuildScheduledEventEntityMetadata *entity_metadata;
     DiscordUser *creator;
@@ -1012,13 +1095,13 @@ struct DiscordGuild {
     int afk_timeout;
     bool widget_enabled;
     U64Snowflake widget_channel_id;
-    DiscordVerificationLevel verification_level;
-    DiscordMessageNotificationLevel default_message_notifications;
-    DiscordExplicitContentFilterLevel explicit_content_filter;
+    DiscordVerificationLevelType verification_level;
+    DiscordMessageNotificationLevelType default_message_notifications;
+    DiscordExplicitContentFilterLevelType explicit_content_filter;
     DiscordRoles *roles;
     DiscordEmojis *emojis;
     Strings *features;
-    DiscordMfaLevel mfa_level;
+    DiscordMfaLevelType mfa_level;
     U64Snowflake application_id;
     U64Snowflake system_channel_id;
     U64Bitmask system_channel_flags;
@@ -1037,7 +1120,7 @@ struct DiscordGuild {
     char *vanity_url_code;
     char *description;
     char *banner;
-    DiscordPremiumTier premium_tier;
+    DiscordPremiumTierType premium_tier;
     int premium_subscribtion_count;
     char *preffered_locale;
     U64Snowflake public_updates_channel_id;
@@ -1045,7 +1128,7 @@ struct DiscordGuild {
     int approximate_member_count;
     int approximate_presence_count;
     DiscordWelcomeScreen *welcome_screen;
-    DiscordGuildNSFWLevel nsfw_level;
+    DiscordGuildNSFWLevelType nsfw_level;
     DiscordStageInstances *stage_instanced;
     DiscordStickers *stickers;
     DiscordGuildScheduledEvents *guild_scheduled_events;
@@ -1068,7 +1151,7 @@ struct DiscordReady {
 
 struct DiscordApplicationCommand {
     U64Snowflake id;
-    DiscordApplicationCommandTypes type;
+    DiscordApplicationCommandTypesType type;
     U64Snowflake application_id;
     U64Snowflake guild_id;
     char *name;
@@ -1088,7 +1171,7 @@ struct DiscordApplicationCommands {
 struct DiscordResponse {
     void *data;
     void *keep;
-    CcordCode code;
+    CcordCodeType code;
 }
 
 alias DiscordRetApplicationCommands_Cleanup = fn void(Discord*, void*);
@@ -1118,7 +1201,7 @@ struct DiscordInteractionCallbackData {
 }
 
 struct DiscordInteractionResponse {
-    DiscordInteractionCallbackTypes type;
+    DiscordInteractionCallbackTypesType type;
     DiscordInteractionCallbackData *data;
 }
 
@@ -1155,17 +1238,21 @@ alias OnReady = fn void(Discord*, DiscordReady*);
 alias OnInteraction = fn void(Discord*, DiscordInteraction*);
 
 /* === FNS === */
-extern fn CcordCode ccord_global_init();
+extern fn CcordCodeType ccord_global_init();
+
 extern fn Discord* discord_init(char* token);
 extern fn Discord* discord_config_init(char* config_file);
+extern fn CcordCodeType discord_run(Discord *client);
+extern fn void discord_cleanup(Discord *client);
+extern fn int discord_get_ping(Discord *client);
+
 extern fn CcordSzbufReadonly discord_config_get_field(Discord *client, char **path, uint depth);
 extern fn void discord_set_on_ready(Discord *client, OnReady callback);
-extern fn CcordCode discord_run(Discord *client);
-extern fn CcordCode discord_get_guild_application_commands(Discord *client, U64Snowflake application_id, U64Snowflake guild_id, DiscordRetApplicationCommands *ret);
-extern fn CcordCode discord_delete_guild_application_command(Discord *client, U64Snowflake application_id, U64Snowflake guild_id, U64Snowflake command_id, DiscordRet *ret);
+extern fn CcordCodeType discord_get_guild_application_commands(Discord *client, U64Snowflake application_id, U64Snowflake guild_id, DiscordRetApplicationCommands *ret);
+extern fn CcordCodeType discord_delete_guild_application_command(Discord *client, U64Snowflake application_id, U64Snowflake guild_id, U64Snowflake command_id, DiscordRet *ret);
 extern fn void discord_application_commands_cleanup(DiscordApplicationCommands *self);
-extern fn CcordCode discord_create_guild_application_command(Discord *client, U64Snowflake application_id, U64Snowflake guild_id, DiscordCreateGuildApplicationCommand *params, DiscordRetApplicationCommands *ret);
+extern fn CcordCodeType discord_create_guild_application_command(Discord *client, U64Snowflake application_id, U64Snowflake guild_id, DiscordCreateGuildApplicationCommand *params, DiscordRetApplicationCommands *ret);
 extern fn ulong discord_timestamp(Discord *client);
 extern fn void discord_update_presence(Discord *client, DiscordPresenceUpdate *presence);
 extern fn void discord_set_on_interaction_create(Discord* client, OnInteraction callback);
-extern fn CcordCode discord_create_interaction_response(Discord *client, U64Snowflake interaction_id, char *interaction_token, DiscordInteractionResponse *params, DiscordRetInteractionResponse *ret);
+extern fn CcordCodeType discord_create_interaction_response(Discord *client, U64Snowflake interaction_id, char *interaction_token, DiscordInteractionResponse *params, DiscordRetInteractionResponse *ret);

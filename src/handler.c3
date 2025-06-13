@@ -31,10 +31,10 @@ fn void on_concord_ready(Discord *client, DiscordReady *event) {
 
     DiscordRet del_ret = { .sync = true };
 
-    CcordCode code = raw::discord_get_guild_application_commands(client,
+    CcordCodeType code = raw::discord_get_guild_application_commands(client,
         event.application.id, _guild_id, &ret);
 
-    if (code == raw::CCORD_OK && app_cmds.size > 0) {
+    if (code == CcordCode.OK && app_cmds.size > 0) {
         defer raw::discord_application_commands_cleanup(&app_cmds);
         for (int i = 0; i < app_cmds.size; i++) {
             raw::discord_delete_guild_application_command(client,
@@ -56,7 +56,7 @@ fn void on_concord_ready(Discord *client, DiscordReady *event) {
 }
 
 fn void on_concord_interaction(Discord *client, DiscordInteraction *event) {
-    if (event.type != raw::DISCORD_INTERACTION_APPLICATION_COMMAND) return;
+    if (event.type != DiscordInteractionTypes.APPLICATION_COMMAND) return;
 
     String req_cmd = ((ZString) event.data.name).str_view();
 

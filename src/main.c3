@@ -13,9 +13,9 @@ novie::handler::GuildCommand[] commands = {
 fn void on_ping(Discord *client, DiscordInteraction *event)
 {
     char[256] buf;
-    io::bprintf(&buf, "pong %dms!", get_ping_ms(client));
+    io::bprintf(&buf, "pong %dms!", raw::discord_get_ping(client));
     DiscordInteractionResponse params = {
-        .type = raw::DISCORD_INTERACTION_CHANNEL_MESSAGE_WITH_SOURCE,
+        .type =  DiscordInteractionCallbackTypes.CHANNEL_MESSAGE_WITH_SOURCE,
         .data = &&(DiscordInteractionCallbackData) { .content = &buf },
     };
     raw::discord_create_interaction_response(client, event.id, event.token,
@@ -27,7 +27,7 @@ fn void on_ready(Discord *client)
     DiscordActivity[] activities = {
         {
             .name = "games with Cyano",
-            .type = raw::DISCORD_ACTIVITY_GAME,
+            .type =  DiscordActivityTypes.GAME,
         }
     };
 

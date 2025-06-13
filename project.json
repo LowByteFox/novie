@@ -7,7 +7,6 @@
   "authors": [ "LowByteFox" ],
   "version": "0.1.0",
   "sources": [ "src/**", "lib/**" ],
-  "c-sources": [ "csrc/**" ],
   "test-sources": [ "test/**" ],
   "output": "build",
   "targets": {
